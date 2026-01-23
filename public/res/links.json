@@ -1,0 +1,17 @@
+[
+    {
+        "name": "华中科技大学",
+        "url": "https://www.hust.edu.cn/",
+        "logo": "/hust_logo.png"
+    },
+    {
+        "name": "华中科技大学能源与动力工程学院",
+        "url": "https://energy.hust.edu.cn/",
+        "logo": "/epe_logo.png"
+    },
+    {
+        "name": "煤燃烧与低碳利用全国重点实验室",
+        "url": "https://sklcc.hust.edu.cn/",
+        "logo": "/sklcc_logo.png"
+    }
+]
