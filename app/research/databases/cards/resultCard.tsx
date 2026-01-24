@@ -34,19 +34,24 @@ export default function ResultCard({ selectedItem }: ResultCardProps) {
 						</div>
 					</div>
 
-					<div className="grid grid-cols-1 gap-3 text-base leading-7 text-slate-700">
-						<p>
-							<strong>名称:</strong> {selectedItem.name}
-						</p>
-						<p>
-							<strong>CAS:</strong> {selectedItem.cas}
-						</p>
-						<p>
-							<strong>缩写:</strong> {selectedItem.abbr || "-"}
-						</p>
-						<p>
-							<strong>类别:</strong> {selectedItem.category || "-"}
-						</p>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="grid grid-cols-1 gap-3 text-base leading-7 text-slate-700">
+							<p>
+								<strong>名称:</strong> {selectedItem.name}
+							</p>
+							<p>
+								<strong>CAS:</strong> {selectedItem.cas}
+							</p>
+							<p>
+								<strong>缩写:</strong> {selectedItem.abbr || "-"}
+							</p>
+							<p>
+								<strong>类别:</strong> {selectedItem.category || "-"}
+							</p>
+						</div>
+						<div className="rounded-lg border border-slate-200 bg-white/90 min-h-40 flex items-center justify-center text-slate-400">
+							图像预留
+						</div>
 					</div>
 
 					<div className="space-y-3">
