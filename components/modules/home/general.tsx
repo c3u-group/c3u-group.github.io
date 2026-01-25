@@ -146,15 +146,15 @@ export default function General() {
                         priority
                     />
                     <h2 className="text-md xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl font-semibold md:font-bold mb-2 tracking-wide text-center">
-                        <span className="inline-block">清洁燃烧与碳捕集利用</span>
+                        <span className="inline-block">清洁燃烧与碳循环利用</span>
                         <span className="inline-block">团队</span>
                     </h2>
                     <div className="text-xs xs:text-sm font-bold sm:text-base lg:text-md xl:text-lg leading-relaxed text-center flex flex-col justify-center items-center gap-0.5">
-                        <span className="inline-block p-2">C<sup>3+</sup>U Research Group</span>
+                        <span className="inline-block p-2">C<sup>3</sup>U Research Group</span>
                         <div className="text-xl text-left text-gray-800/80 dark:text-gray-200/80 leading-relaxed">
                             <span className="" style={{fontFamily: "serif"}}><span className="font-bold text-green-500/80" style={{fontFamily: "sans-serif"}}>C</span>lean Combustion</span><br/>
-                            <span className="" style={{fontFamily: "serif"}}><span className="font-bold text-green-500/80" style={{fontFamily: "sans-serif"}}>C</span>O₂ Capture</span><br/>
-                            <span className="" style={{fontFamily: "serif"}}><span className="font-bold text-green-500/80" style={{fontFamily: "sans-serif"}}>C</span>O₂ <span className="font-bold text-indigo-500" style={{fontFamily: "sans-serif"}}>U</span>tilization</span><br/>
+                            <span className="" style={{fontFamily: "serif"}}><span className="font-bold text-green-500/80" style={{fontFamily: "sans-serif"}}>C</span>arbon Cycle</span><br/>
+                            <span className="" style={{fontFamily: "serif"}}><span className="font-bold text-green-500/80" style={{fontFamily: "sans-serif"}}>C</span>arbon <span className="font-bold text-indigo-500" style={{fontFamily: "sans-serif"}}>U</span>tilization</span><br/>
                         </div>
 
                     </div>

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, MouseEvent } from "react";
 
-const HEADER_TEXT = "燃烧碳捕集技术课题组";
+const HEADER_TEXT = "清洁燃烧与碳循环利用团队";
 
 const NAV_ITEMS = [
-  { id: "general", label: "课题组概况" },
+  { id: "general", label: "团队概况" },
   { id: "news", label: "新闻动态" },
   { id: "about", label: "团队简介" },
   { id: "research", label: "学术经纬" },
