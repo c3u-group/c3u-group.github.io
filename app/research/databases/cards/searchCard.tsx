@@ -155,16 +155,14 @@ export default function SearchCard({ onSelect }: SearchCardProps) {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6 lg:p-8 lg:h-full flex flex-col gap-6">
-      <div className="text-center space-y-1">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">查询数据库</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">输入类别、名称、CAS、缩写，快速查找氨基吸收剂信息</p>
-      </div>
-
-      <div className="relative w-full">
+    <div className="bg-white dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 lg:p-6 lg:h-full flex flex-col gap-5">
+      <div className="space-y-1.5">
+        <label className="text-[11px] font-semibold tracking-[0.15em] uppercase text-gray-400 dark:text-gray-500">
+          搜索
+        </label>
         <div className="relative">
           <svg
-            className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-gray-400"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -176,69 +174,84 @@ export default function SearchCard({ onSelect }: SearchCardProps) {
             type="text"
             value={inputValue}
             onChange={onInputChange}
-            placeholder={inputHolder || "输入类别、名称、CAS、缩写进行搜索..."}
-            className="w-full h-[44px] pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-700/50 outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:placeholder-gray-400"
+            placeholder={inputHolder || "类别、名称、CAS、缩写..."}
+            className="w-full h-[42px] pl-10 pr-10 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 outline-none transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/15 dark:focus:border-emerald-400 dark:focus:ring-emerald-400/15"
           />
+          {inputValue && (
+            <button
+              onClick={() => handleInputChange("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              aria-label="Clear search"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
 
-          <ul
-            ref={dropdownRef}
-            className={`absolute top-full left-0 z-10 w-full max-h-[400px] mt-1 p-0 list-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-y-auto transition-all ${showDropdown ? 'block' : 'hidden'}`}
-            role="listbox"
-          >
-            {matchedList.map((item) => (
-              <li key={item.item_id} className="m-0 p-0 border-b border-gray-100 dark:border-gray-700 last:border-0">
-                <button
-                  className="block w-full px-4 py-3 text-sm transition-colors hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-700 dark:hover:text-emerald-300 text-left"
-                  role="option"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleItemClick(item);
-                  }}
-                >
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-gray-900 dark:text-white leading-snug break-words">
-                      {['category','name','cas','abbr'].map(k=>item[k as keyof AminoRecord]).map(v=>v||"N/A").join(" | ")}
+          {showDropdown && (
+            <ul
+              ref={dropdownRef}
+              className="absolute top-full left-0 z-10 w-full max-h-[320px] mt-1.5 p-0 list-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-y-auto animate-fade-slide-in"
+              role="listbox"
+            >
+              {matchedList.map((item) => (
+                <li key={item.item_id} className="m-0 p-0 border-b border-gray-100 dark:border-gray-700 last:border-0">
+                  <button
+                    className="block w-full px-4 py-3 text-left transition-colors hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
+                    role="option"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleItemClick(item);
+                    }}
+                  >
+                    <div className="font-semibold text-gray-900 dark:text-white leading-snug text-sm">
+                      {['category','name','cas','abbr'].map(k=>item[k as keyof AminoRecord]).map(v=>v||"N/A").join(" · ")}
                     </div>
-                    <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600">ID {item.item_id}</span>
-                      {item.abbr && <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800">{item.abbr}</span>}
-                      {item.category && <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800">{item.category}</span>}
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+                      <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-mono text-[11px]">#{item.item_id}</span>
+                      {item.abbr && <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium">{item.abbr}</span>}
+                      {item.category && <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-medium">{item.category}</span>}
                     </div>
-                  </div>
-                </button>
-              </li>
-            ))}
-          </ul>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
       <div className="flex flex-col gap-3 flex-1 min-h-0 overflow-y-auto">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white">历史查询</h4>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-gray-400 dark:text-gray-500">
+            历史查询
+          </span>
+          {history.length > 0 && (
+            <span className="text-[11px] text-gray-400 dark:text-gray-500 font-mono tabular-nums">{history.length}</span>
+          )}
         </div>
         {history.length === 0 ? (
-          <div className="w-full rounded-lg border border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/70 dark:bg-gray-700/30 p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
-            暂无历史记录，选择一条结果后会出现在这里
+          <div className="rounded-lg border border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-5 text-center">
+            <p className="text-xs text-gray-400 dark:text-gray-500">搜索并选择一条结果，历史记录将出现在这里</p>
           </div>
         ) : (
-          <div className="grid gap-3 grid-cols-1 2xl:grid-cols-2">
+          <div className="grid gap-2.5 grid-cols-1 2xl:grid-cols-2">
             {history.slice(0, isSm ? 2 : 12).map((item, idx) => (
               <button
                 key={item.item_id ?? idx}
                 onClick={() => handleItemClick(item)}
-                className="group w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/70 dark:bg-gray-700/30 p-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="group w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 p-3 text-left transition-all duration-200 hover:border-emerald-200 dark:hover:border-emerald-800 hover:bg-white dark:hover:bg-gray-800 hover:shadow-sm"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <div className="font-semibold text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 leading-snug line-clamp-2 text-sm">
+                  <div className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 leading-snug text-sm line-clamp-1">
                     {item.name || item.cas || item.abbr || "N/A"}
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0">ID {item.item_id}</span>
+                  <span className="text-[11px] text-gray-400 dark:text-gray-500 font-mono shrink-0 tabular-nums">#{item.item_id}</span>
                 </div>
-                <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
-                  {item.abbr && <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800">{item.abbr}</span>}
-                  {item.category && <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800">{item.category}</span>}
+                <div className="flex flex-wrap gap-1.5 mt-2 text-[11px]">
+                  {item.abbr && <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium">{item.abbr}</span>}
+                  {item.category && <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-medium">{item.category}</span>}
                 </div>
-                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">CAS: {item.cas || "-"}</p>
               </button>
             ))}
           </div>
