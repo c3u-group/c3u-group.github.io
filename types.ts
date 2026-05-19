@@ -8,6 +8,17 @@ export type NewsItem = {
   author: string;
 };
 
+export type JournalItem = {
+  title: string;
+  author: string;
+  journal: string;
+  abstract: string;
+  type: string;
+  doi?: string;
+  doi_link?: string;
+  link?: string;
+};
+
 export type Member = {
   name: string;
   avatar: string;
