@@ -77,7 +77,7 @@ export default function NewsClient() {
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                     
                     {/* Filters Sidebar */}
-                    <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-8 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-8">
+                    <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-8">
                         <div>
                              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
                                 <i className="fas fa-filter text-green-600"></i> 筛选
