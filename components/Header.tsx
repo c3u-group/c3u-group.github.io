@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, MouseEvent } from "react";
 
-const HEADER_TEXT = "清洁燃烧与碳循环利用团队";
-
 const NAV_ITEMS = [
   { id: "general", label: "团队概况" },
   { id: "news", label: "新闻动态" },
@@ -14,11 +12,11 @@ const NAV_ITEMS = [
   { id: "contact", label: "联系我们" },
 ];
 
-const HEADER_OFFSET = 72; // px: approximate header height for offset calculations
-const HIGHLIGHT_BUFFER = 48; // px: extra buffer to shift the highlight boundary downward
+const HEADER_OFFSET = 72;
+const HIGHLIGHT_BUFFER = 48;
 
 export default function Header() {
-  const [activeId, setActiveId] = useState<string>(NAV_ITEMS[0].id);
+  const [activeId, setActiveId] = useState(NAV_ITEMS[0].id);
   const [isOpen, setIsOpen] = useState(false);
   const activeIdRef = useRef(activeId);
   const tickingRef = useRef(false);
@@ -53,21 +51,14 @@ export default function Header() {
           return;
         }
 
-        // Choose the last section whose top is at or above the marker
         let nextId = sections[0].id;
         for (const section of sections) {
-          if (marker >= section.offsetTop) {
-            nextId = section.id;
-          } else {
-            break;
-          }
+          if (marker >= section.offsetTop) nextId = section.id;
+          else break;
         }
 
-        // If user scrolled beyond last section top, stick to last section
         const last = sections[sections.length - 1];
-        if (marker >= last.offsetTop) {
-          nextId = last.id;
-        }
+        if (marker >= last.offsetTop) nextId = last.id;
 
         if (nextId !== activeIdRef.current) {
           activeIdRef.current = nextId;
@@ -80,17 +71,13 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [sectionIds]);
 
   const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (window.location.pathname !== "/") {
       setIsOpen(false);
-      return; // Allow Link to navigate back to home with hash
-      
+      return;
     }
 
     event.preventDefault();
@@ -108,10 +95,8 @@ export default function Header() {
     >
       <Link href="/" className="mr-6 flex items-center">
         <img src="/C3U_logo.png" alt="C³U Logo" className="h-10 w-auto" />
-        {/* <h2 className="text-xl font-semibold text-gray-900" title={HEADER_TEXT}>
-          {HEADER_TEXT}
-        </h2> */}
       </Link>
+
       <div className="header-actions absolute right-6 top-0 h-16 flex items-center">
         <button
           type="button"
@@ -152,6 +137,8 @@ export default function Header() {
           </ul>
         </nav>
       </div>
+
+      {/* Mobile nav dropdown */}
       <div
         className={`md:hidden absolute left-0 top-16 w-full bg-white shadow-lg border-t border-gray-100 transform origin-top transition-all duration-200 ease-out ${
           isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"

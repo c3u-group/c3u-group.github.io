@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import membersData from "@/public/res/members.json";
+import membersData from "@/data/members.json";
 
 type Player = {
     name: string;

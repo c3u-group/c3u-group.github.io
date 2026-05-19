@@ -1,6 +1,6 @@
 "use client";
 
-import datalist from "@/public/data/aminodb.json";
+import datalist from "@/data/aminodb.json";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import type { AminoRecord } from "../types";
 
