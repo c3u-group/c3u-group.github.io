@@ -8,13 +8,13 @@ type ResultCardProps = {
 
 export default function ResultCard({ selectedItem }: ResultCardProps) {
 	return (
-		<div className="bg-linear-to-br from-slate-50 via-white to-slate-100 rounded-xl border border-slate-200 shadow-md p-8 h-full flex flex-col gap-8 my-2">
+		<div className="bg-linear-to-br from-slate-50 via-white to-slate-100 rounded-xl border border-slate-200 shadow-md p-8 h-full flex flex-col gap-8">
 			{!selectedItem ? (
 				<div className="flex h-full items-center justify-center text-slate-500">
 					请查询数据库
 				</div>
 			) : (
-				<div className="space-y-4">
+				<div className="space-y-4 overflow-y-auto min-h-0">
 					<div className="flex items-start justify-between gap-3">
 						<h4 className="text-lg font-semibold text-slate-800">查询结果</h4>
 						<div className="flex flex-wrap gap-2 text-xs">
