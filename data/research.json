@@ -1,0 +1,8 @@
+[
+  { "href": "/research/funds", "icon": "fa-flask-vial", "title": "科研项目" },
+  { "href": "/research/journals", "icon": "fa-book", "title": "期刊论文" },
+  { "href": "/research/conferences", "icon": "fa-users", "title": "学术会议" },
+  { "href": "/research/patents", "icon": "fa-file-contract", "title": "专利获奖" },
+  { "href": "/research/competitions", "icon": "fa-microscope", "title": "竞赛获奖" },
+  { "href": "/research/databases", "icon": "fa-database", "title": "数据共享" }
+]
