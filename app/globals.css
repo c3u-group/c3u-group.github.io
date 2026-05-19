@@ -66,5 +66,5 @@ body {
 }
 
 .animate-card-pop {
-  animation: cardPop 220ms ease-out;
+  animation: cardPop 220ms ease-out backwards;
 }

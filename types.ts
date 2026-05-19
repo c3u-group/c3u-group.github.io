@@ -9,13 +9,20 @@ export type NewsItem = {
 };
 
 export type JournalItem = {
-  title: string;
+  item_type: string;
+  publication_year: string;
   author: string;
+  title: string;
+  publication_title: string;
+  doi: string;
+  abstract_note: string;
+  date: string;
+  keywords: string;
+  // backward-compatible aliases
+  type: string;
   journal: string;
   abstract: string;
-  type: string;
-  doi?: string;
-  doi_link?: string;
+  doi_link: string;
   link?: string;
 };
 
