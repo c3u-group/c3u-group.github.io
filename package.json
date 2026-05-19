@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 13000",
+    "prebuild": "node scripts/build-db.cjs",
+    "build": "next build",
     "build:db": "node scripts/build-db.cjs",
-    "build": "npm run build:db && next build",
     "start": "next start",
     "lint": "eslint"
   },

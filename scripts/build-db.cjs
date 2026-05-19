@@ -2,12 +2,13 @@
 const fs = require("fs");
 const path = require("path");
 
+const rawDir = path.join(__dirname, "..", "data", "raw");
 const dataDir = path.join(__dirname, "..", "data");
 
-const files = fs.readdirSync(dataDir).filter((f) => f.endsWith(".jsonl"));
+const files = fs.readdirSync(rawDir).filter((f) => f.endsWith(".jsonl"));
 
 for (const file of files) {
-  const src = path.join(dataDir, file);
+  const src = path.join(rawDir, file);
   const dst = path.join(dataDir, file.replace(/\.jsonl$/, ".json"));
 
   const text = fs.readFileSync(src, "utf-8").trim();

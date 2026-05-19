@@ -19,9 +19,9 @@ npm run build    # converts JSONL → JSON, then builds static export to ./out
 
 ## Data
 
-Content is stored as JSONL in `data/` for easy editing. Appending a record is just adding a line:
+Content authoring is done in JSONL under `data/raw/` — line-by-line diffs, append-only additions:
 
-- `data/news.jsonl` — news items
-- `data/aminodb.jsonl` — amino absorbent database
+- `data/raw/news.jsonl` — news items
+- `data/raw/aminodb.jsonl` — amino absorbent database
 
-The `build:db` script converts all `.jsonl` files to `.json` before each build. The generated `.json` files are gitignored.
+A `prebuild` hook runs `scripts/build-db.cjs` which converts all `.jsonl` in `data/raw/` to `.json` in `data/`. Run it standalone with `npm run build:db`. The generated `.json` files are gitignored.

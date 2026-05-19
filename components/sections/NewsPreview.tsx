@@ -35,7 +35,7 @@ export default function NewsPreview() {
     <Section id="news">
       <SectionHeader title="新闻动态" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 auto-rows-fr gap-6 w-full flex-1">
-        {(news as NewsItem[]).slice(0, itemsToShow).map((item, idx) => (
+        {(news as NewsItem[]).slice().reverse().slice(0, itemsToShow).map((item, idx) => (
           <NewsCard key={idx} item={item} />
         ))}
       </div>

@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev      # dev server on port 13000
-npm run build    # static export to ./out
+npm run build    # prebuild (jsonl→json) then static export to ./out
+npm run build:db # jsonl→json conversion only
 npm run lint     # ESLint (next/core-web-vitals + typescript)
 ```
 
@@ -26,7 +27,9 @@ components/
   cards/                # Reusable card components (NewsCard, TeacherCard, MemberMarquee, TeacherDetail)
   Header.tsx            # Fixed nav bar with scroll-aware section highlighting
   AppShell.tsx           # Layout shell: Header + main content
-data/                   # Build-time JSON imports (news, members, links, about, research)
+data/
+  raw/                  # JSONL source files (news, aminodb) — hand-edited
+  *.json                # Generated JSON (via prebuild) + hand-edited (members, links, about, research)
 public/
   res/                  # Images and runtime assets
   data/                 # Runtime-accessed JSON (aminodb.json)
@@ -45,10 +48,13 @@ types.ts               # Shared TypeScript types (NewsItem, Member, etc.)
 ### Data flow
 
 All content is static JSON in `data/`:
-- `news.json` — news items; consumed by `NewsPreview` and `/news` page
+- `news.json` — news items (generated from `data/raw/news.jsonl`); displayed newest-first via `.slice().reverse()` in consumers
+- `aminodb.json` — amino acid database (generated from `data/raw/aminodb.jsonl`)
 - `members.json` — teacher/doctor/master/alumni arrays
 - `about.json` — research areas, quick facts, progress items, roadmap
 - `links.json`, `research.json` — link lists
+
+`prebuild` hook runs `scripts/build-db.cjs` which converts all `.jsonl` files in `data/raw/` to `.json` in `data/`.
 
 API: `/api/index-photos` returns the list of filenames in `public/index_photo/` for the hero slideshow.
 

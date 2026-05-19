@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import news from "@/data/news.json";
 import NewsCard from "@/components/cards/NewsCard";
 
+const newsReversed = news.slice().reverse();
 
 export default function NewsClient() {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -11,7 +12,7 @@ export default function NewsClient() {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     // Memoize tags extraction
-    const allTags = useMemo(() => Array.from(new Set(news.flatMap((n) => n.categories))).sort(), []);
+    const allTags = useMemo(() => Array.from(new Set(newsReversed.flatMap((n) => n.categories))).sort(), []);
 
     const toggleTag = (tag: string) => {
         setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
@@ -25,7 +26,7 @@ export default function NewsClient() {
     };
 
     const filteredNews = useMemo(() => {
-        return news.filter((item) => {
+        return newsReversed.filter((item) => {
             // Tag Filter
             if (selectedTags.length > 0 && !item.categories.some((c) => selectedTags.includes(c))) {
                 return false;
@@ -67,9 +68,9 @@ export default function NewsClient() {
                         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                             新闻动态
                         </h1>
-                        <p className="text-gray-500 dark:text-gray-400 mt-2">
+                        {/* <p className="text-gray-500 dark:text-gray-400 mt-2">
                             来自 C³U 团队的最新研究、活动和公告。
-                        </p>
+                        </p> */}
                     </div>
                 </section>
 
