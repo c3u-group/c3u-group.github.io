@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-full items-center justify-center bg-zinc-50 font-sans dark:bg-black w-full">
+    <div className="flex flex-col h-full items-center justify-center bg-stone-50 font-sans dark:bg-neutral-950 w-full">
       <HomeClient />
     </div>
   );

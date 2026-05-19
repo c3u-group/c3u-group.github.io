@@ -16,7 +16,7 @@ export default function Links() {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center hover:scale-105 transition-transform bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md h-full"
+            className="flex items-center justify-center bg-white dark:bg-gray-800/60 p-5 rounded-xl shadow-sm border border-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-gray-100 dark:hover:border-gray-700 h-full"
           >
             <div className="relative w-full flex items-center justify-center">
               <Image

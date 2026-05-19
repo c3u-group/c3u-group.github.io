@@ -12,7 +12,7 @@ export default function Contact() {
         target="_blank"
         className="grid grid-cols-1 gap-10"
       >
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700/50 shadow-sm p-8 m-auto flex flex-col items-center">
+        <div className="bg-white dark:bg-gray-800/60 rounded-2xl border border-gray-100 dark:border-gray-700/50 shadow-sm p-10 m-auto flex flex-col items-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
           <Image
             src="/C3U_logo.png"
             alt="清洁燃烧与碳循环利用团队"

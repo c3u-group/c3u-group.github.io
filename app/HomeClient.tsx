@@ -8,7 +8,7 @@ import Links from "@/components/sections/Links";
 
 export default function HomeClient() {
   return (
-    <main className="w-full px-4 lg:px-6 space-y-6 h-full flex flex-col">
+    <main className="w-full h-full flex flex-col">
       <General />
       <NewsPreview />
       <About />

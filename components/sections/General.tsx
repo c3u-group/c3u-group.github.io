@@ -79,7 +79,7 @@ export default function General() {
           images.map((src, idx) => (
             <div
               key={src}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === current ? "opacity-100" : "opacity-0"}`}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === current ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-[2px] scale-105"}`}
             >
               <Image
                 src={src}
@@ -105,8 +105,9 @@ export default function General() {
           className="absolute inset-0 drop-shadow-xl"
           style={{
             clipPath,
-            background: "linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,1) 100%)",
-            backdropFilter: "blur(0.5px)",
+            background: "linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.9) 100%)",
+            backdropFilter: "blur(3px) saturate(1.2)",
+            WebkitBackdropFilter: "blur(3px) saturate(1.2)",
           }}
         />
       </div>
@@ -123,22 +124,23 @@ export default function General() {
             priority
           />
           <h2 className="text-md xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl font-semibold md:font-bold mb-2 tracking-wide text-center">
-            <span className="inline-block">清洁燃烧与碳循环利用</span>
+            <span className="inline-block">清洁燃烧与</span>
+            <span className="inline-block">碳循环利用</span>
             <span className="inline-block">团队</span>
           </h2>
           <div className="text-xs xs:text-sm font-bold sm:text-base lg:text-md xl:text-lg leading-relaxed text-center flex flex-col justify-center items-center gap-0.5">
             <span className="inline-block p-2">C<sup>3</sup>U Research Group</span>
             <div className="text-xl text-left text-gray-800/80 dark:text-gray-200/80 leading-relaxed">
               <span style={{ fontFamily: "serif" }}>
-                <span className="font-bold text-green-500/80" style={{ fontFamily: "sans-serif" }}>C</span>lean Combustion
+                <span className="font-bold text-emerald-600/80" style={{ fontFamily: "sans-serif" }}>C</span>lean Combustion
               </span>
               <br />
               <span style={{ fontFamily: "serif" }}>
-                <span className="font-bold text-green-500/80" style={{ fontFamily: "sans-serif" }}>C</span>arbon Cycle
+                <span className="font-bold text-emerald-600/80" style={{ fontFamily: "sans-serif" }}>C</span>arbon Cycle
               </span>
               <br />
               <span style={{ fontFamily: "serif" }}>
-                <span className="font-bold text-green-500/80" style={{ fontFamily: "sans-serif" }}>C</span>arbon <span className="font-bold text-indigo-500" style={{ fontFamily: "sans-serif" }}>U</span>tilization
+                <span className="font-bold text-emerald-600/80" style={{ fontFamily: "sans-serif" }}>C</span>arbon <span className="font-bold text-indigo-500" style={{ fontFamily: "sans-serif" }}>U</span>tilization
               </span>
               <br />
             </div>

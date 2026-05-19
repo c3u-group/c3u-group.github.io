@@ -25,7 +25,7 @@ export default function About() {
           >
             <div className="relative flex items-center justify-between">
               <div>
-                <div className="text-4xl font-extrabold text-slate-900 dark:text-white">
+                <div className="text-4xl font-extrabold text-slate-900 dark:text-white transition-transform duration-300 group-hover:scale-110 origin-left">
                   {item.value}
                 </div>
                 <div className="mt-1 text-sm font-medium text-slate-500 dark:text-slate-400">
