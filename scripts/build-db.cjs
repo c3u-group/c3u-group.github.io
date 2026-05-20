@@ -47,48 +47,70 @@ for (const file of entries) {
       relax_column_count: true,
     });
 
-    const records = rows.map((row) => {
-      const title = row["Title"] || "";
-      const author = row["Author"] || "";
-      const publicationTitle = row["Publication Title"] || "";
-      const abstract = row["Abstract Note"] || "";
-      const itemType = row["Item Type"] || "";
-      const doi = row["DOI"] || "";
-      const publicationYear = row["Publication Year"] || "";
-      const date = row["Date"] || "";
-      const manualTags = row["Manual Tags"] || "";
+    const cols = Object.keys(rows[0] || {});
 
-      return {
-        item_type: itemType,
-        publication_year: publicationYear,
-        author,
-        title,
-        publication_title: publicationTitle,
-        doi,
-        abstract_note: abstract,
-        date,
-        keywords: manualTags,
-        // backward-compatible aliases
-        type: itemType,
-        journal: publicationTitle,
-        abstract,
-        doi_link: doi,
-      };
-    });
+    if (cols.includes("extern_url")) {
+      // news CSV
+      const records = rows.map((row) => ({
+        id: parseInt(row.id, 10) || 0,
+        title: row.title || "",
+        description: row.description || "",
+        author: row.author || "",
+        image: row.image || "",
+        date: row.date || "",
+        categories: (() => {
+          try { return JSON.parse(row.categories || "[]"); } catch { return []; }
+        })(),
+        extern_url: row.extern_url || "",
+      }));
 
-    records.sort((a, b) => {
-      const yearDiff = (parseInt(b.publication_year, 10) || 0) - (parseInt(a.publication_year, 10) || 0);
-      if (yearDiff !== 0) return yearDiff;
+      fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
+      console.log(`Built ${path.basename(dst)} from ${records.length} news CSV records`);
+    } else {
+      // journal CSV
+      const records = rows.map((row) => {
+        const title = row["Title"] || "";
+        const author = row["Author"] || "";
+        const publicationTitle = row["Publication Title"] || "";
+        const abstract = row["Abstract Note"] || "";
+        const itemType = row["Item Type"] || "";
+        const doi = row["DOI"] || "";
+        const publicationYear = row["Publication Year"] || "";
+        const date = row["Date"] || "";
+        const manualTags = row["Manual Tags"] || "";
 
-      const parseDate = (d) => {
-        const parts = d.split("/");
-        if (parts.length === 3) return new Date(+parts[0], +parts[1] - 1, +parts[2]);
-        return new Date(0);
-      };
-      return parseDate(b.date) - parseDate(a.date);
-    });
+        return {
+          item_type: itemType,
+          publication_year: publicationYear,
+          author,
+          title,
+          publication_title: publicationTitle,
+          doi,
+          abstract_note: abstract,
+          date,
+          keywords: manualTags,
+          // backward-compatible aliases
+          type: itemType,
+          journal: publicationTitle,
+          abstract,
+          doi_link: doi,
+        };
+      });
 
-    fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
-    console.log(`Built ${path.basename(dst)} from ${records.length} CSV records`);
+      records.sort((a, b) => {
+        const yearDiff = (parseInt(b.publication_year, 10) || 0) - (parseInt(a.publication_year, 10) || 0);
+        if (yearDiff !== 0) return yearDiff;
+
+        const parseDate = (d) => {
+          const parts = d.split("/");
+          if (parts.length === 3) return new Date(+parts[0], +parts[1] - 1, +parts[2]);
+          return new Date(0);
+        };
+        return parseDate(b.date) - parseDate(a.date);
+      });
+
+      fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
+      console.log(`Built ${path.basename(dst)} from ${records.length} journal CSV records`);
+    }
   }
 }
