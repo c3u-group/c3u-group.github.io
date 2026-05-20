@@ -36,7 +36,9 @@ yarn-error.log*
 
 # generated
 /data/aminodb.json
+/data/journal.json
 /data/news.json
+/data/processed/
 
 # typescript
 *.tsbuildinfo

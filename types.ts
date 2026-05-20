@@ -16,13 +16,7 @@ export type JournalItem = {
   publication_title: string;
   doi: string;
   abstract_note: string;
-  date: string;
   keywords: string;
-  // backward-compatible aliases
-  type: string;
-  journal: string;
-  abstract: string;
-  doi_link: string;
   link?: string;
 };
 

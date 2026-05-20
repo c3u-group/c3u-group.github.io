@@ -1,116 +1,51 @@
 #!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
-const { parse } = require("csv-parse/sync");
+const { preprocess: preNews } = require("./preprocess-news.cjs");
+const { preprocess: preJournal } = require("./preprocess-journal.cjs");
+const { csvFileToJson } = require("./convert-csv.cjs");
+const { jsonlFileToJson } = require("./convert-jsonl.cjs");
+const { yamlFileToJson } = require("./convert-yaml.cjs");
 
 const rawDir = path.join(__dirname, "..", "data", "raw");
+const processedDir = path.join(__dirname, "..", "data", "processed");
 const dataDir = path.join(__dirname, "..", "data");
 
-const entries = fs.readdirSync(rawDir);
+// Step 1: Preprocess — data-specific header renaming, sorting, filtering
+const preprocessors = {
+  "news.csv": preNews,
+  "journal.csv": preJournal,
+};
 
-for (const file of entries) {
+for (const [file, fn] of Object.entries(preprocessors)) {
   const src = path.join(rawDir, file);
-  const ext = path.extname(file);
+  const dst = path.join(processedDir, file);
+  if (!fs.existsSync(src)) {
+    console.log(`Skipping ${file} (not found in raw/)`);
+    continue;
+  }
+  fn(src, dst);
+}
 
-  if (ext === ".jsonl") {
-    const dst = path.join(dataDir, file.replace(/\.jsonl$/, ".json"));
-    const text = fs.readFileSync(src, "utf-8").trim();
-    if (!text) {
+// Step 2: Convert — general format-to-format, no data knowledge
+const converters = {
+  ".csv": { fn: csvFileToJson, dir: processedDir },
+  ".jsonl": { fn: jsonlFileToJson, dir: rawDir },
+  ".yaml": { fn: yamlFileToJson, dir: rawDir },
+  ".yml": { fn: yamlFileToJson, dir: rawDir },
+};
+
+for (const [ext, { fn, dir: srcDir }] of Object.entries(converters)) {
+  for (const file of fs.readdirSync(srcDir)) {
+    if (!file.endsWith(ext)) continue;
+    const src = path.join(srcDir, file);
+    const dst = path.join(dataDir, file.replace(ext, ".json"));
+    const records = fn(src);
+    if (!records.length) {
       console.log(`Skipping ${file} (empty)`);
       continue;
     }
-
-    const lines = text.split("\n").filter(Boolean);
-    const records = lines.map((line, i) => {
-      try {
-        return JSON.parse(line);
-      } catch {
-        console.error(`Invalid JSONL in ${file} at line ${i + 1}: ${line.slice(0, 80)}...`);
-        process.exit(1);
-      }
-    });
-
     fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
-    console.log(`Built ${path.basename(dst)} from ${records.length} JSONL records`);
-  } else if (ext === ".csv") {
-    const dst = path.join(dataDir, file.replace(/\.csv$/, ".json"));
-    const text = fs.readFileSync(src, "utf-8");
-    if (!text.trim()) {
-      console.log(`Skipping ${file} (empty)`);
-      continue;
-    }
-
-    const rows = parse(text, {
-      columns: true,
-      skip_empty_lines: true,
-      bom: true,
-      relax_column_count: true,
-    });
-
-    const cols = Object.keys(rows[0] || {});
-
-    if (cols.includes("extern_url")) {
-      // news CSV
-      const records = rows.map((row) => ({
-        id: parseInt(row.id, 10) || 0,
-        title: row.title || "",
-        description: row.description || "",
-        author: row.author || "",
-        image: row.image || "",
-        date: row.date || "",
-        categories: (() => {
-          try { return JSON.parse(row.categories || "[]"); } catch { return []; }
-        })(),
-        extern_url: row.extern_url || "",
-      }));
-
-      fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
-      console.log(`Built ${path.basename(dst)} from ${records.length} news CSV records`);
-    } else {
-      // journal CSV
-      const records = rows.map((row) => {
-        const title = row["Title"] || "";
-        const author = row["Author"] || "";
-        const publicationTitle = row["Publication Title"] || "";
-        const abstract = row["Abstract Note"] || "";
-        const itemType = row["Item Type"] || "";
-        const doi = row["DOI"] || "";
-        const publicationYear = row["Publication Year"] || "";
-        const date = row["Date"] || "";
-        const manualTags = row["Manual Tags"] || "";
-
-        return {
-          item_type: itemType,
-          publication_year: publicationYear,
-          author,
-          title,
-          publication_title: publicationTitle,
-          doi,
-          abstract_note: abstract,
-          date,
-          keywords: manualTags,
-          // backward-compatible aliases
-          type: itemType,
-          journal: publicationTitle,
-          abstract,
-          doi_link: doi,
-        };
-      });
-
-      records.sort((a, b) => {
-        const yearDiff = (parseInt(b.publication_year, 10) || 0) - (parseInt(a.publication_year, 10) || 0);
-        if (yearDiff !== 0) return yearDiff;
-
-        const parseDate = (d) => {
-          const parts = d.split("/");
-          if (parts.length === 3) return new Date(+parts[0], +parts[1] - 1, +parts[2]);
-          return new Date(0);
-        };
-        return parseDate(b.date) - parseDate(a.date);
-      });
-
-      fs.writeFileSync(dst, JSON.stringify(records, null, 2), "utf-8");
-      console.log(`Built ${path.basename(dst)} from ${records.length} journal CSV records`);
-    }
+    console.log(`Built ${path.basename(dst)} from ${records.length} records`);
   }
 }
