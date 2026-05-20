@@ -18,7 +18,7 @@ const journals = rawJournals.filter((item): item is JournalItem => {
 });
 
 const yearOptions = Array.from(
-  new Set(journals.map((item) => item.publication_year).filter((y) => y.trim().length > 0)),
+  new Set(journals.map((item) => String(item.publication_year || "")).filter((y) => y.trim().length > 0)),
 ).sort((a, b) => parseInt(b, 10) - parseInt(a, 10));
 
 const typeLabels: Record<string, string> = {
@@ -135,7 +135,7 @@ export default function JournalsClient() {
   const filteredJournals = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     return journals.filter((item) => {
-      if (selectedYear && item.publication_year !== selectedYear) return false;
+      if (selectedYear && String(item.publication_year || "") !== selectedYear) return false;
       if (!query) return true;
 
       const haystack = [

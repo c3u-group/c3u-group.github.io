@@ -10,7 +10,7 @@ export type NewsItem = {
 
 export type JournalItem = {
   item_type: string;
-  publication_year: string;
+  publication_year: number;
   author: string;
   title: string;
   publication_title: string;
