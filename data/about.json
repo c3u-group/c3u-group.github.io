@@ -1,10 +1,10 @@
 {
   "intro": "团队围绕能源的低碳清洁利用开展研究，聚焦“燃烧 + 新能源”的交叉领域，构建从基础研究、材料与装备开发到系统集成的完整技术链。近年来主持国家重点研发计划、国家自然科学基金等项目 20 余项，形成“燃烧碳捕集-利用-储热-评价”闭环方案。",
   "quickFacts": [
-    { "value": "2 个", "label": "国家重点研发计划", "icon": "fa-microscope" },
+    { "value": "2 个", "label": "主持国家重点研发计划", "icon": "fa-microscope" },
     { "value": "20+", "label": "国家/省部级项目", "icon": "fa-file-signature" },
-    { "value": "万吨级", "label": "固体捕集示范规模", "icon": "fa-industry" },
-    { "value": "6 大", "label": "低碳技术方向", "icon": "fa-layer-group" }
+    { "value": "170+", "label": "SCI文章发表", "icon": "fa-magnifying-glass" },
+    { "value": "5 大", "label": "低碳技术方向", "icon": "fa-layer-group" }
   ],
   "focusAreas": [
     {

@@ -74,12 +74,7 @@
         }
     ],
     "doctor": [
-        {
-            "name": "徐彬",
-            "research_topic": "研究方向",
-            "avatar": "xb.png",
-            "year": "2022级"
-        },
+
             
         {
             "name": "万天意",
@@ -95,12 +90,6 @@
             "year": "2022级"
         },
             
-        {
-            "name": "高晓艺",
-            "research_topic": "研究方向",
-            "avatar": "gxy.png",
-            "year": "2022级"
-        },
             
         {
             "name": "毛文超",
@@ -229,69 +218,7 @@
         }
     ],
     "master": [
-        {
-            "name": "董家宁",
-            "research_topic": "",
-            "avatar": "djn.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "蒋巧雲",
-            "research_topic": "",
-            "avatar": "jqy.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "杨少龙",
-            "research_topic": "",
-            "avatar": "ysl.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "陈号迁",
-            "research_topic": "",
-            "avatar": "chq.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "韩自强",
-            "research_topic": "",
-            "avatar": "hzq.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "付爱军",
-            "research_topic": "",
-            "avatar": "faj.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "曹欣赫",
-            "research_topic": "",
-            "avatar": "cxh.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "乐笑宇",
-            "research_topic": "",
-            "avatar": "lxy.png",
-            "year": "2023级"
-        },
-
-        {
-            "name": "海丽雅",
-            "research_topic": "",
-            "avatar": "hly.png",
-            "year": "2023级"
-        },
-
+        
         {
             "name": "孙小兵",
             "research_topic": "",
@@ -546,6 +473,80 @@
             "name": "徐泽政",
             "avatar": "xzz.png",
             "year": "2024届硕士"
+        },
+        {
+            "name": "徐彬",
+            "research_topic": "",
+            "avatar": "xb.png",
+            "year": "2026届博士"
+        },
+        {
+            "name": "高晓艺",
+            "research_topic": "",
+            "avatar": "gxy.png",
+            "year": "2026届博士"
+        },
+        {
+            "name": "董家宁",
+            "research_topic": "",
+            "avatar": "djn.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "蒋巧雲",
+            "research_topic": "",
+            "avatar": "jqy.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "杨少龙",
+            "research_topic": "",
+            "avatar": "ysl.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "陈号迁",
+            "research_topic": "",
+            "avatar": "chq.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "韩自强",
+            "research_topic": "",
+            "avatar": "hzq.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "付爱军",
+            "research_topic": "",
+            "avatar": "faj.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "曹欣赫",
+            "research_topic": "",
+            "avatar": "cxh.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "乐笑宇",
+            "research_topic": "",
+            "avatar": "lxy.png",
+            "year": "2026届硕士"
+        },
+
+        {
+            "name": "海丽雅",
+            "research_topic": "",
+            "avatar": "hly.png",
+            "year": "2026届硕士"
         }
     
     ]
